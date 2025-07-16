@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Customer;
+import com.example.demo.entity.ResetClass;
 import com.example.demo.repo.CustomerRepo;
 
 
@@ -63,6 +64,17 @@ public class CustomerService {
 		}else {
 			return false;
 		}
+	}
+
+	public boolean reset(ResetClass resetClass) {
+	    Optional<Customer> optionalCustomer = customerRepo.findByEmailIgnoreCase(resetClass.getEmail());
+	    if (optionalCustomer.isEmpty()) {
+	        return false;
+	    }
+	    Customer customer = optionalCustomer.get();
+	    customer.setPassword(en.encode(resetClass.getPassword()));
+	    customerRepo.save(customer);
+	    return true;
 	}
 
 

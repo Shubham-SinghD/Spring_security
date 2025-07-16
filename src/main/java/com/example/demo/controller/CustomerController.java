@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.entity.Customer;
+import com.example.demo.entity.ResetClass;
 import com.example.demo.jjwt.JwtUtil;
 import com.example.demo.otp.EmailOtp;
 import com.example.demo.service.CustomerService;
@@ -59,9 +60,23 @@ public class CustomerController {
 		 
 	}
 	
+	@PostMapping("/reset")
+	public ResponseEntity<String> getReset(@RequestBody ResetClass loginData) {
+	    boolean reset = customerService.reset(loginData);
+
+	    if (reset) {
+	        return ResponseEntity.ok("User password updated successfully");
+	    } else {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+	    }
+	}
+
+	
+	
+	
 	@GetMapping("/otp")
-	public ResponseEntity<String> getOtp(@RequestParam String username) {
-	    boolean sendOtp = emailOtp.sendOtp(username);
+	public ResponseEntity<String> getOtp(@RequestParam String email) {
+	    boolean sendOtp = emailOtp.sendOtp(email);
 	    System.err.println(sendOtp);
 	    if (!sendOtp) {
 	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("OTP could not be sent.");
@@ -70,8 +85,9 @@ public class CustomerController {
 	}
 
 	
-	@PostMapping("/validation")
+	@PostMapping("/Otpvalidation")
 	public String ValidateOtp(@RequestParam String email ,@RequestParam String otp) {
+		System.err.println(email+"  "+otp);
 		boolean validation = emailOtp.getValidation(email, otp);
 		if(validation) {
 			return "validation";

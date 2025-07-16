@@ -33,6 +33,7 @@ public class JwtUtil {
 	        byte[] keyBytes = Decoders.BASE64.decode(secretKey1);
 	        return Keys.hmacShaKeyFor(keyBytes);
 	    }
+	 
 	 public  String generateToken(String username) {
 	    	Map<String, Object>mp=new HashMap<String, Object>();
 	        return Jwts.builder()

@@ -30,7 +30,7 @@ public class CustomerSecurity {
 				.cors(Customizer.withDefaults()) 
 				.formLogin(Customizer.withDefaults())
 				.httpBasic(Customizer.withDefaults())
-				.authorizeHttpRequests(r->r.requestMatchers("/student/login","/student/register").permitAll()
+				.authorizeHttpRequests(r->r.requestMatchers("/student/login","/student/register","/student/otp","/student/reset","/student/Otpvalidation").permitAll()
 						.anyRequest().authenticated())
 				.sessionManagement(s->s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
