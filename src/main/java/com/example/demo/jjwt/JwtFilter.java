@@ -1,4 +1,4 @@
-package com.example.demo.jjwt;
+ package com.example.demo.jjwt;
 
 import java.io.IOException;
 
@@ -25,7 +25,7 @@ public class JwtFilter extends OncePerRequestFilter {
 	private JwtUtil jwtUtil;
 	
 	@Autowired
-	ApplicationContext context;
+	private ApplicationContext context;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)

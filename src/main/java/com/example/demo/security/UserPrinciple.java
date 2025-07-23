@@ -13,7 +13,7 @@ public class UserPrinciple implements UserDetails {
 	
 	private static final long serialVersionUID = 1L;
 	
-	Customer customer;
+	private Customer customer;
 
 	public UserPrinciple(Customer customer) {
 		this.customer=customer;
@@ -21,18 +21,16 @@ public class UserPrinciple implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return Collections.singleton(new SimpleGrantedAuthority("USER"));
+		return Collections.singleton(new SimpleGrantedAuthority(customer.getRole()));
 	}
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
 		return customer.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
 		return customer.getEmail();
 	}
 

@@ -24,7 +24,7 @@ public class EmailOtp {
 	    private JavaMailSender mailSender;
 	 
 	 @Autowired
-	 CustomerRepo customerRepo;
+	private CustomerRepo customerRepo;
 
 	 
 	 
@@ -57,14 +57,14 @@ public class EmailOtp {
 	        }else {
 	        	return false;
 	        }
-	        
 	    }
+	    
 	    private void sendOtpToEmail(String email, String otp) throws MessagingException {
 	       SimpleMailMessage simpleMailMessage =new SimpleMailMessage();
 	       simpleMailMessage.setSubject("Varification");
 	       simpleMailMessage.setTo(email);
 	       simpleMailMessage.setText("Your otp is : "+otp +"\n"+"Valid for five minutes");
-	       simpleMailMessage.setFrom("Shubham Singh<shubham@example.com>");
+//	       simpleMailMessage.setFrom("Shubham Singh<shubham@example.com>");
 	       simpleMailMessage.setSentDate(new Date(System.currentTimeMillis()));
 	       mailSender.send(simpleMailMessage);
 	    }

@@ -71,9 +71,6 @@ public class CustomerController {
 	    }
 	}
 
-	
-	
-	
 	@GetMapping("/otp")
 	public ResponseEntity<String> getOtp(@RequestParam String email) {
 	    boolean sendOtp = emailOtp.sendOtp(email);
@@ -83,7 +80,6 @@ public class CustomerController {
 	    }
 	    return ResponseEntity.ok("OTP sent successfully.");
 	}
-
 	
 	@PostMapping("/Otpvalidation")
 	public String ValidateOtp(@RequestParam String email ,@RequestParam String otp) {

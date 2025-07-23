@@ -125,8 +125,8 @@ public class FunctionService {
 	public void deleteData(Long studentRollno) {
 		Optional<Student> byId = studentrepo.findById(studentRollno);
 		if(byId.isEmpty()) {
-			throw new StudentNotFound("Student Not Present ");
-		}
+			throw new StudentNotFound("Student Not Present "); 
+		} 
 		Student student = byId.get();
 		studentrepo.delete(student);
 	}

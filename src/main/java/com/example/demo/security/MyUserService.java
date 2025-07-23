@@ -35,8 +35,4 @@ public class MyUserService implements UserDetailsService {
 
 	    return new UserPrinciple(customer.get());
 	}
-
-
-
-
 }

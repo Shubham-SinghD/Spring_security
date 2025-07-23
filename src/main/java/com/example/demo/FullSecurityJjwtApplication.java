@@ -9,5 +9,4 @@ public class FullSecurityJjwtApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FullSecurityJjwtApplication.class, args);
 	}
-
 }

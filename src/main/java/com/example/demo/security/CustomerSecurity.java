@@ -18,33 +18,37 @@ import com.example.demo.jjwt.JwtFilter;
 
 @Configuration
 public class CustomerSecurity {
-	
+
 	@Autowired
 	private MyUserService myUserService;
-	
+
 	@Autowired
 	private JwtFilter jwtFilter;
+
 	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		return http.csrf(C->C.disable())
-				.cors(Customizer.withDefaults()) 
-				.formLogin(Customizer.withDefaults())
+	 SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		return http.csrf(C -> C.disable())
+				.cors(Customizer.withDefaults())
+//				.formLogin(Customizer.withDefaults())
 				.httpBasic(Customizer.withDefaults())
-				.authorizeHttpRequests(r->r.requestMatchers("/student/login","/student/register","/student/otp","/student/reset","/student/Otpvalidation").permitAll()
+				.authorizeHttpRequests(r -> r.requestMatchers("/student/login", "/student/register", "/student/otp",
+						"/student/reset", "/student/Otpvalidation")
+						.permitAll()
 						.anyRequest().authenticated())
-				.sessionManagement(s->s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+				.sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
 				.build();
 	}
-	
+
 	@Bean
-	public AuthenticationProvider authenticationProvider() {
-		DaoAuthenticationProvider provider=new DaoAuthenticationProvider(myUserService);
+	 AuthenticationProvider authenticationProvider() {
+		DaoAuthenticationProvider provider = new DaoAuthenticationProvider(myUserService);
 		provider.setPasswordEncoder(new BCryptPasswordEncoder(12));
 		return provider;
 	}
+
 	@Bean
-	public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+	 AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
 		return configuration.getAuthenticationManager();
 	}
 

@@ -18,10 +18,13 @@ import com.example.demo.repo.CustomerRepo;
 
 @Service
 public class CustomerService {
+	
 	@Autowired
-	CustomerRepo customerRepo;
+	private CustomerRepo customerRepo;
+	
 	@Autowired
-	AuthenticationManager authenticationManager;
+	private AuthenticationManager authenticationManager;
+	
 	public Customer validateLogin(Customer loginHandler) throws AuthenticationException {
 	    String identifier = loginHandler.getEmail(); 
 
@@ -48,7 +51,6 @@ public class CustomerService {
 	        }
 	        return customer.orElseThrow(() -> new BadCredentialsException("User not found"));
 	    }
-
 	    return null;
 	}
 
